@@ -11,6 +11,7 @@ def get_uuid():
 
 
 def get_status(uuid):
+    # aws lambda get-event-source-mapping --uuid "231960e8-14b7-49eb-a160-76cc1a78edbb"
     if uuid == "231960e8-14b7-49eb-a160-76cc1a78edbb":
         return status_data.status1
     elif uuid == "231960e8-14b7-49eb-a160-76cc1a78edbc":
