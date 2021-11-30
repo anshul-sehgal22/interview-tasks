@@ -23,6 +23,7 @@ def get_status(uuid):
 
 
 def enabler(uuid):
+    # aws lambda update-event-source-mapping --uuid "36625356-2c72-4257-acfb-1e6dd0a0b66e" --enabled
     print("aws lambda update-event-source-mapping --uuid {} --enabled".format(uuid))
 
 
