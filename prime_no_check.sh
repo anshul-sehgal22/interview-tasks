@@ -1,4 +1,5 @@
 #!/bin/bash
+# Note: try by square root
 #echo "Please provide a number to check prime number: "
 #read n
 n=111
