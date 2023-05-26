@@ -1,0 +1,59 @@
+#sample.go
+package main
+import (
+	"fmt"
+	"net/http"
+)
+func hello(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "hello\n")
+}
+func main() {
+	fmt.Println("Server is started")
+	http.HandleFunc("/hello", hello)
+	http.ListenAndServe(":8080", nil)
+}
+
+
+---
+#go.mod
+module example
+go 1.20
+
+
+---
+#dockerfile
+FROM golang:1.20-alpine as build
+WORKDIR /opt
+COPY . .
+RUN go mod download
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /sample
+
+
+FROM alpine:latest as run
+WORKDIR /opt
+RUN addgroup app
+RUN adduser -S app -G app
+USER app
+COPY --from=build sample .
+CMD ./sample
+
+
+
+
+--- Task details
+multistage
+8080
+run as non root
+
+
+golang:1.20-alpine  build
+go mod download
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /hello
+
+
+alpine:latest  run
+User -> app
+Group -> app
+adduser -S app -G app
+
+docker run -name sample-go-01 -p 8080:8080 sample:test2
