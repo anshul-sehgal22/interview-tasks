@@ -1,0 +1,225 @@
+#LINUX QUESTIONS#
+Q1. Display all files present at path /opt/ ending with .js extension.
+    find /opt/ -iname *.js
+Q2. Write the command to check if port 8080 is open for example.targetsite.com or not.
+    telnet example.targetsite.com 8080
+Q3. How we can check disk space usage in Linux OS?
+    df command
+Q4. Write command to create symbolic link for a file example.jks
+    ln -s example.jks <optional_symbolic link>
+Q5. What are the standard streams in Linux OS.
+    Stdin (standard input)
+    stdout(standard output)
+    stderr (standard error)
+Q6. How do you list all the processes running in Linux?
+	ps command
+Q7. Which command we can use to change permissions of file ABC.sh and give write and executable permission?
+    chmod u+wx ABC.sh or chmod +wx ABC.sh
+Q8 How do you find the process ID (PID) of a running process?
+   pgrep <process_1>
+   ps -e | grep -i <process_1>
+Q9. How do you create a user account?
+    useradd <user_name> or adduser <user_name>
+    passwd <password>
+Q10. How we can archives directories and files into a tarball.
+     tar -cvf <tarball_file_name>.tar <files or directory to archive into tarball>
+Q11. How you will display all lines where keyword "test" is present in file named file.txt
+     grep "test" file.txt
+Q12. How do you check the status of a service or daemon in Linux?
+     systemctl status apache2
+Q13. How we can schedule recurring tasks in linux?
+     using crontab
+Q14. How you will replace all keyword "old" with "new" in a file named file.txt
+     sed `s/old/new/g` file.txt
+Q15. How will you check if any process is listening on port 3000 or not?
+     netstat -tuln | grep 3000
+
+
+
+#SHELL SCRIPTING QUESTIONS#
+Q1. Write shell script to reverse a number.
+
+#!/bin/bash
+ 
+echo "Enter a number"
+read num
+reverse=0
+ 
+while [ $num -gt 0 ]
+do
+    remainder=$(( $num % 10 )) 
+    reverse=$(( $reverse * 10 + $remainder )) 
+    num=$(( $num / 10 )) 
+done
+ 
+echo "Reversed number is : $reverse"
+
+Q2. Write shell script to check if a number is prime or not.
+
+#!/bin/bash
+echo -e "Enter Number : \c"
+read n
+for((i=2; i<=$n/2; i++))
+do
+  ans=$(( n%i ))
+  if [ $ans -eq 0 ]
+  then
+    echo "$n is not a prime number."
+    exit 0
+  fi
+done
+echo "$n is a prime number."
+
+Q3. Write shell script to print Fibonacci Series.
+
+#!/bin/bash
+# Static input for N
+N=6
+ 
+# First Number of the
+# Fibonacci Series
+a=0
+ 
+# Second Number of the
+# Fibonacci Series
+b=1 
+  
+echo "The Fibonacci series is : "
+  
+for (( i=0; i<N; i++ ))
+do
+    echo -n "$a "
+    fn=$((a + b))
+    a=$b
+    b=$fn
+done
+# End of for loop
+
+Q4. Write shell script to check if a number is odd or even.
+
+#!/bin/bash
+echo -n "Enter a number:";
+read n;
+echo -n "RESULT: ";
+if [ `expr $n % 2` == 0 ]
+then
+	echo "$n is even";
+else
+	echo "$n is Odd";
+fi
+
+Q5. Write a shell script for factorial of a number
+
+#factorial using while loop
+
+echo "Enter a number"
+read num
+
+fact=1
+
+while [ $num -gt 1 ]
+do
+  fact=$((fact * num))  #fact = fact * num
+  num=$((num - 1))      #num = num - 1
+done
+
+echo $fact
+
+Q6. Write shell script to swap two numbers
+
+#!/bin/bash
+
+# Program to swap two numbers
+
+# Static input of the
+# numbers
+first=5
+second=10
+
+temp=$first
+first=$second
+second=$temp
+
+echo "After swapping, numbers are:"
+echo "first = $first, second = $second
+
+Q7. Write shell script to find average of numbers. Use array for storing numbers.
+
+#!/bin/bash
+# Total numbers
+n=5
+
+# copying the value of n
+m=$n
+
+# initialized sum by 0
+sum=0
+
+# array initialized with
+# some numbers
+array=(1 2 3 4 5)
+
+# loop until n is greater
+# than 0
+while [ $n -gt 0 ]
+do
+    # copy element in a
+    # temp variable
+    num=${array[`expr $n - 1`]}
+
+    # add them to sum
+    sum=`expr $sum + $num`
+
+    # decrement count of n
+    n=`expr $n - 1`
+done
+
+# displaying the average
+# by piping with bc command
+# bc is bash calculator
+# command
+avg=`echo "$sum / $m" | bc -l`
+printf '%0.3f' "$avg"
+
+Q8. Write a shell script to compare two numbers and print greater value.
+
+#!/bin/bash
+echo "Enter Num1"
+read num1
+echo "Enter Num2"
+read num2
+
+if [ $num1 -gt $num2 ]
+then
+    echo $num1
+else
+    echo $num2
+fi
+
+Q9. Write a shell script to take username as input argument(or use a static value from 
+a variable) and create a user on Linux OS.
+
+#!/bin/bash
+USER_NAME="${1}"
+
+# Check if user has provided required inputs on command line.
+if [[ "${#}" -eq 0 ]]
+then
+	echo "Usage: ${0} USER_NAME"
+	exit 1
+fi
+
+# Add user
+adduser ${USER_NAME}
+
+Q10. Write a shell script to take directory name as input parameter(or use a static value 
+from a variable) and create 10 directories appending _1 to _10 as suffix in the directory 
+name.
+
+#!/bin/bash
+DIRECTORY_NAME="${1}"
+
+for i in {1..10}
+do
+  echo "${DIRECTORY_NAME}_${i}"
+done
