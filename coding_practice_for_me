@@ -1,0 +1,19 @@
+# Bubble Sort
+def bubble_sort(elements):
+    size = len(elements)
+    print("size: ", size)
+    
+    for i in range(size -1):
+        for j in range(size - 1 - i):
+            if elements[j] > elements[j + 1]:
+                temp = elements[j]
+                elements[j] = elements[j + 1]
+                elements[j + 1] = temp
+        print(elements)
+    return elements
+
+
+# bubble sort
+
+elements = [1,3,123, 50, 11, 7, 6, 8]
+print(bubble_sort(elements))
